@@ -47,3 +47,33 @@ variable "worker_count" {
   default     = 2
 }
 
+variable "disk_type" {
+  type        = string
+  description = "Boot disk type for Dataproc VMs (pd-standard|pd-balanced|pd-ssd)"
+  default     = "pd-standard"
+}
+
+variable "master_boot_disk_gb" {
+  type        = number
+  description = "Master boot disk size (GB)"
+  default     = 50
+}
+
+variable "worker_boot_disk_gb" {
+  type        = number
+  description = "Worker boot disk size (GB)"
+  default     = 100
+}
+
+variable "create_vm_service_account" {
+  type        = bool
+  description = "Create a dedicated VM service account for Dataproc"
+  default     = true
+}
+
+variable "vm_service_account_email" {
+  type        = string
+  description = "Use an existing VM service account email (when create_vm_service_account=false)"
+  default     = ""
+}
+
