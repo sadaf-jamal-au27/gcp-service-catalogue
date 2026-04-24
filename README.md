@@ -70,4 +70,4 @@ In a second terminal:
 npm run dev:api
 ```
 
-# gcp-service-catalogue
+# gcp-service-catalogue-project
