@@ -11,24 +11,28 @@ resource "google_service_account" "dataproc_vm" {
 
 # Minimum roles to satisfy Dataproc VM agent + logging/metrics + staging bucket access.
 resource "google_project_iam_member" "dataproc_vm_worker" {
+  count   = var.manage_project_iam ? 1 : 0
   project = var.project_id
   role    = "roles/dataproc.worker"
   member  = "serviceAccount:${local.vm_service_account_email}"
 }
 
 resource "google_project_iam_member" "dataproc_vm_log_writer" {
+  count   = var.manage_project_iam ? 1 : 0
   project = var.project_id
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${local.vm_service_account_email}"
 }
 
 resource "google_project_iam_member" "dataproc_vm_metric_writer" {
+  count   = var.manage_project_iam ? 1 : 0
   project = var.project_id
   role    = "roles/monitoring.metricWriter"
   member  = "serviceAccount:${local.vm_service_account_email}"
 }
 
 resource "google_project_iam_member" "dataproc_vm_storage" {
+  count   = var.manage_project_iam ? 1 : 0
   project = var.project_id
   role    = "roles/storage.objectAdmin"
   member  = "serviceAccount:${local.vm_service_account_email}"

@@ -77,3 +77,9 @@ variable "vm_service_account_email" {
   default     = ""
 }
 
+variable "manage_project_iam" {
+  type        = bool
+  description = "Whether this module should manage project-level IAM bindings for the Dataproc VM service account"
+  default     = false
+}
+
