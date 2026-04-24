@@ -6,7 +6,7 @@ resource "google_dataproc_cluster" "primary" {
   cluster_config {
     gce_cluster_config {
       # Provider v7 expects `network` / `subnetwork` (name or self_link).
-      network          = var.network_self_link
+      # Dataproc provider schema treats these as conflicting; prefer subnetwork.
       subnetwork       = var.subnetwork_self_link
       internal_ip_only = true
     }
