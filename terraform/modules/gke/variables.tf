@@ -59,3 +59,9 @@ variable "node_machine_type" {
   default     = "e2-standard-4"
 }
 
+variable "node_locations" {
+  type        = list(string)
+  description = "Optional list of zones for the node pool (helps control quota usage for regional clusters)"
+  default     = []
+}
+
