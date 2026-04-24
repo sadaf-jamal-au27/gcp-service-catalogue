@@ -3,6 +3,9 @@ substitutions:
   _TF_STATE_BUCKET: ""
   _TF_STATE_PREFIX: "nexusgrid/dev"
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
   - id: "terraform fmt"
     name: "hashicorp/terraform:1.11.2"
