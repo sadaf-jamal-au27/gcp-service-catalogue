@@ -47,3 +47,15 @@ variable "worker_count" {
   default     = 2
 }
 
+variable "master_boot_disk_gb" {
+  type        = number
+  description = "Master boot disk size (GB). Keep small to avoid SSD_TOTAL_GB quota issues."
+  default     = 50
+}
+
+variable "worker_boot_disk_gb" {
+  type        = number
+  description = "Worker boot disk size (GB). Keep small to avoid SSD_TOTAL_GB quota issues."
+  default     = 100
+}
+
