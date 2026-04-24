@@ -1,0 +1,49 @@
+substitutions:
+  _TF_DIR: "terraform/envs/dev"
+  _TF_STATE_BUCKET: ""
+  _TF_STATE_PREFIX: "nexusgrid/dev"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - id: "terraform fmt"
+    name: "hashicorp/terraform:1.11.2"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        terraform fmt -check -recursive /workspace/terraform
+
+  - id: "terraform init"
+    name: "hashicorp/terraform:1.11.2"
+    dir: "${_TF_DIR}"
+    args:
+      - "init"
+      - "-input=false"
+      - "-backend-config=bucket=${_TF_STATE_BUCKET}"
+      - "-backend-config=prefix=${_TF_STATE_PREFIX}"
+
+  - id: "terraform validate"
+    name: "hashicorp/terraform:1.11.2"
+    dir: "${_TF_DIR}"
+    args: ["validate"]
+
+  - id: "terraform plan"
+    name: "hashicorp/terraform:1.11.2"
+    dir: "${_TF_DIR}"
+    args:
+      - "plan"
+      - "-input=false"
+      - "-no-color"
+      - "-out=tfplan"
+      - "-var=project_id=$PROJECT_ID"
+      - "-var=region=us-central1"
+      - "-var=tf_state_bucket=${_TF_STATE_BUCKET}"
+
+artifacts:
+  objects:
+    location: "gs://${_TF_STATE_BUCKET}/build-artifacts/${_TF_STATE_PREFIX}/${BUILD_ID}/"
+    paths:
+      - "${_TF_DIR}/tfplan"
+
