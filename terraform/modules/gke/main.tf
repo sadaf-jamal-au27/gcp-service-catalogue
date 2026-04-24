@@ -27,8 +27,7 @@ resource "google_container_node_pool" "primary_nodes" {
   location = var.region
   cluster  = google_container_cluster.primary.name
 
-  node_count     = var.node_count
-  node_locations = length(var.node_locations) > 0 ? var.node_locations : null
+  node_count = var.node_count
 
   node_config {
     machine_type = var.node_machine_type

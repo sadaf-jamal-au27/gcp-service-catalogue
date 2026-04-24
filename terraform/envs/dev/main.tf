@@ -28,11 +28,6 @@ module "gke" {
 
   network_self_link    = module.network.network_self_link
   subnetwork_self_link = module.network.subnetwork_self_link
-
-  # Reduce quota footprint for regional clusters (default is 3 zones).
-  node_locations    = ["${var.region}-a"]
-  node_count        = 2
-  node_machine_type = "e2-standard-2"
 }
 
 module "dataproc" {
